@@ -1,16 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const User = require("./models/User");
+const User = require("./models/user.model");
 
-const mongouri = "mongodb://localhost:27017/user"; // MongoDB URI
+const mongouri = "mongodb://localhost:27017/lab1db"; // MongoDB URI
 const app = express();
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Connect to MongoDB
 mongoose
-  .connect(mongouri)
+  .connect(mongouri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("MongoDB connected");
     app.listen(8000, () => console.log("App started on port 8000"));
@@ -35,20 +36,6 @@ app.get("/users", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-app.get("/login", async (req, res) => {
-  await User.findOne(
-    { name: req.query.name, password: req.query.password },
-    (err, data) => {
-      if (err) throw err;
-      if (data) {
-        res.send("Login successful");
-        res.redirect("/home");
-      } else {
-        res.send("Invalid credentials");
-      }
-    }
-  );
-});
 
 // Get user by ID
 app.get("/user/:id", async (req, res) => {
@@ -68,9 +55,7 @@ app.delete("/user/:id", async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      return res
-        .status(404)
-        .json({ message: `Cannot find any user with ID ${req.params.id}` });
+      return res.status(404).json({ message: `Cannot find any user with ID ${req.params.id}` });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -79,7 +64,7 @@ app.delete("/user/:id", async (req, res) => {
 });
 
 // Add new user
-app.post("/register", async (req, res) => {
+app.post("/adduser", async (req, res) => {
   try {
     const userParam = req.body;
     // Check if the email already exists
@@ -89,7 +74,6 @@ app.post("/register", async (req, res) => {
     const user = new User(userParam);
     await user.save();
     res.status(201).send("User added successfully");
-    res.redirect("localhost/login");
   } catch (err) {
     res.status(500).send(`Server error: ${err.message}`);
   }
@@ -98,9 +82,7 @@ app.post("/register", async (req, res) => {
 // Update user by ID (optional, as needed)
 app.put("/user/:id", async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -109,4 +91,3 @@ app.put("/user/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-app.listen(5000);
