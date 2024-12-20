@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import "./register.css";
-import Navbar from './Navbar'; // إضافة الـ Navbar هنا
-
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -59,18 +56,14 @@ const Register = () => {
   };
 
   return (
-    
-    
-    <body class="login-page">
-      <div>
-      <Navbar /> 
-    </div>
     <div className="register-container">
       <h1 className="register-title">Register</h1>
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
       <form onSubmit={handleSubmit} className="register-form" autoComplete="off">
         <div className="form-group">
           <label htmlFor="fullname" className="form-label">
-            
+            Full name:
           </label>
           <input
             type="text"
@@ -80,13 +73,11 @@ const Register = () => {
             onChange={(e) => setFullname(e.target.value)}
             required
             className="form-input"
-            autoComplete="off"
-            placeholder="Full name"
           />
         </div>
         <div className="form-group">
           <label htmlFor="username" className="form-label">
-            
+            Username:
           </label>
           <input
             type="text"
@@ -95,14 +86,12 @@ const Register = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            placeholder="Username"
             className="form-input"
-            autoComplete="off"
           />
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
-            
+            Password:
           </label>
           <input
             type="password"
@@ -112,23 +101,18 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             className="form-input"
-            autoComplete="off"
-            placeholder="Password"
           />
         </div>
-        <button type="submit" className="form-button">
-          Register
+        <button
+          type="submit"
+          className="form-button"
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
         </button>
-        <div className="register-links">
-          <a href="/login" className="login-link">
-            Already have an account?
-          </a>
-        </div>
       </form>
     </div>
-    </body>
   );
 };
-
 
 export default Register;

@@ -3,15 +3,9 @@ import roomImage2 from '../images/room2.jpg';
 import roomImage3 from '../images/room3.jpg';
 import roomImage4 from '../images/room4.jpeg';
 
-
-
-
-import { useState } from "react";
-
 const Main = () => {
   return (
     <>
-    
 <div className="header-background">
       <div className="header-overlay"></div> {/* الطبقة السوداء الشفافة */}
       <div className="header-text">
@@ -23,7 +17,7 @@ const Main = () => {
         <p className="line1">Discover A Brand</p> {/* السطر الأول */}
         <p className="line2"> Luxurious Hotel</p> {/* السطر الثاني */}
       </div>
-    </div> 
+    </div>
     <br />
     <br /><br /> <br />
     <h2 className="about1"> Welcome to Grand Continental    </h2>
