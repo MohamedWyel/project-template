@@ -12,14 +12,13 @@ const Navbar = () => {
         
       </div>
       <ul className="nav-links">
-        
-            <li ><a href="http://localhost:3000/" className='lihome1'>Home</a></li>
+            <li><a href="/#Home" className='lihome2'>Home</a></li>
             <li><a href="/#about" className='lihome2'>About</a></li>
             <li><a href="/#contact" className='lihome3'>Contact</a></li>
             <li><a href="/#reviews" className='lihome3'>Reviews</a></li>
             <li><a href="/#Services" className='lihome2'>Services</a></li>
+            <li><a href="/rooms#Rooms" className='lihome3'>Rooms</a></li>
 
-            
 
           </ul>
       <div className="navbar-links">

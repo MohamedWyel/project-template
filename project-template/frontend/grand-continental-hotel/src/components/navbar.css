@@ -29,7 +29,7 @@
 }
 
 .nav-links a {
-    text-decoration: none !important;
+    text-decoration: none;
     color: white;
     font-size: 14px;
 }
@@ -40,8 +40,6 @@
 .h11 {
     color: #f57c00;
 }
-
-/* تخصيص الأزرار */
 .navbar-links {
     display: flex;
     align-items: center;
@@ -57,24 +55,28 @@
     margin-left: 20px;
 }
 
+.login-button a{
+text-decoration:none;
+color :white;
+}
+
 .login-button:hover {
     background-color: #f57c00;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 750px) {
     .navbar {
+        display: flex;
         flex-direction: column;
-        padding: 10px 20px;
+        padding: 5px 10px;
     }
 
     .nav-links {
-        flex-direction: column;
-        margin-top: 10px;
-        text-align: center;
-        margin-right: 0;
+        display: none;
     }
 
-    .navbar-links {
+    .navbar-logo{
+
         display: flex;
         justify-content: center;
         width: 100%;
@@ -88,9 +90,9 @@
     .login-button {
         margin-left: 10px;
     }
-    
-    .navbar-logo {
-        justify-content: center;
+    .h11 {
+        display: flex;
+
         white-space: nowrap;
     }
 }
