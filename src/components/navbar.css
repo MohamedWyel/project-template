@@ -1,0 +1,96 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #1c2232;
+    color: white;
+    overflow: hidden;
+    height: 72px;
+    opacity: 0.9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    margin-right: 140px;
+}
+
+.nav-links li {
+    margin: 0 30px;
+}
+
+.nav-links a {
+    text-decoration: none !important;
+    color: white;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #f57c00;
+}
+.h11 {
+    color: #f57c00;
+}
+
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    background-color: #f19941;
+    border: none;
+    padding: 7px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+.login-button:hover {
+    background-color: #f57c00;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        margin-top: 10px;
+        text-align: center;
+        margin-right: 0;
+    }
+
+    .navbar-links {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .login-button {
+        width: auto;
+        margin-top: 10px;
+    }
+
+    .login-button {
+        margin-left: 10px;
+    }
+    
+    .navbar-logo {
+        justify-content: center;
+        white-space: nowrap;
+    }
+}
