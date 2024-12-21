@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dayjs = require('dayjs');
 const User = require("./models/User");
+const checkout = require("./models/checkout");
 
 const mongouri = "mongodb://localhost:27017/user"; // MongoDB URI
 const app = express();
@@ -13,7 +15,7 @@ mongoose
   .connect(mongouri)
   .then(() => {
     console.log("MongoDB connected");
-    app.listen(8000, () => console.log("App started on port 8000"));
+    app.listen(3001, () => console.log("App started on port 3000"));
   })
   .catch((error) => {
     console.error("Can't connect to MongoDB", error);
@@ -42,7 +44,7 @@ app.get("/login", async (req, res) => {
       if (err) throw err;
       if (data) {
         res.send("Login successful");
-        res.redirect("/home");
+        res.redirect("/#home");
       } else {
         res.send("Invalid credentials");
       }
@@ -83,13 +85,19 @@ app.post("/register", async (req, res) => {
   try {
     const userParam = req.body;
     // Check if the email already exists
-    if (await User.findOne({ email: userParam.email })) {
-      return res.status(400).send(`Email "${userParam.email}" already exists.`);
-    }
+    const userr=await User.findOne( {username: userParam.username})
+    console.log(userr);
+      if(userr){
+        return res.status(400).send(`Username "${userParam.username}" already exists.`); 
+      }
+
+    // if (await User.findOne({ email: userParam.email })) {
+    //   return res.status(400).send(`Email "${userParam.email}" already exists.`);
+    // }
+
     const user = new User(userParam);
     await user.save();
-    res.status(201).send("User added successfully");
-    res.redirect("localhost/login");
+    res.redirect('/login');
   } catch (err) {
     res.status(500).send(`Server error: ${err.message}`);
   }
@@ -109,4 +117,39 @@ app.put("/user/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-app.listen(5000);
+
+app.post("/checkout", async (req, res) => {
+  try {
+    const { creditname, creditnum ,date , cvv } = req.body;
+    const expdate = dayjs(date);
+   
+    const nowdate = dayjs().startOf('month');
+    console.log('Exp Date:', expdate.format('YYYY-MM'));
+    console.log('Now Date:', nowdate.format('YYYY-MM'));
+      if (expdate.isAfter(nowdate, 'month')) {
+          const newcheckout = new checkout({ creditname,creditnum, creditnum, date: expdate.toDate(),cvv });
+          await newcheckout.save();
+          return res.status(200).send('Date is valid and saved.');
+          } else {
+              return res.status(400).send('Date is not valid.');
+              }} catch (error) {
+                console.error(error);
+                 res.status(500).send('Server error.');
+              }
+
+})
+
+app.delete('/checkout/:id', async (req, res) => { 
+  try {
+      const {id} = req.params;
+      const dcheckout = await checkout.findByIdAndDelete(id);
+      if(!dcheckout){
+          return res.status(404).json({message: `cannot find any checkout with ID ${id}`})
+      }
+      return res.status(200).send('Checkout deleted successfully.');
+      
+  } catch (error) {
+      res.status(500).json({message: error.message})
+  }
+});
+// app.listen(3001);
