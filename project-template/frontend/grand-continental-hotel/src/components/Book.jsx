@@ -7,7 +7,7 @@ import "./book.css";
 const Book = () => {
     const [formData, setFormData] = useState({
         fullName: "", email: "", phone: "", checkIn: new Date(), checkOut: new Date(),
-        roomType: "", guests: 1, specialRequests: ""
+        roomId: "", guests: 1, specialRequests: ""
     });
     const [isFormValid, setIsFormValid] = useState(false);
 
@@ -15,7 +15,7 @@ const Book = () => {
         const validateForm = () => {
             setIsFormValid(
                 formData.fullName && formData.email && formData.phone && formData.checkIn &&
-                formData.checkOut && formData.roomType && formData.guests > 0
+                formData.checkOut && formData.roomId && formData.guests > 0
             );
         };
         validateForm();
@@ -23,14 +23,14 @@ const Book = () => {
 
     const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
     const handleDateChange = (date, name) => setFormData({ ...formData, [name]: date });
-    const resetForm = () => setFormData({ fullName: "", email: "", phone: "", checkIn: new Date(), checkOut: new Date(), roomType: "", guests: 1, specialRequests: "" });
+    const resetForm = () => setFormData({ fullName: "", email: "", phone: "", checkIn: new Date(), checkOut: new Date(), roomId: "", guests: 1, specialRequests: "" });
 
     const handleSubmit = e => {
         e.preventDefault();
         if (isFormValid) {
             // Handle form submission here
-            alert(`Booking Confirmed:\n\n${JSON.stringify(formData, null, 2)}`);
-            window.location.href = "/checkout"; //go to checkout page
+            alert(`Booking Confirmed:\n\n${JSON.stringify(formData, null, 2)}`); 
+            window.location.href = `/checkout?roomId=${formData.roomId}`; // Pass roomId as a query parameter
             resetForm(); //resest form
         }
     };
@@ -78,13 +78,10 @@ const Book = () => {
                     <label>Check-Out Date:
                         <DatePicker selected={formData.checkOut} onChange={(date) => handleDateChange(date, 'checkOut')} minDate={formData.checkIn} dateFormat="yyyy-MM-dd" required />
                     </label>
-                    <label>Room Type:
-                        <select name="roomType" value={formData.roomType} onChange={handleChange} required>
-                            <option value="">Select Room Type</option>
-                            <option value="single">Single Room</option>
-                            <option value="double">Double Room</option>
-                            <option value="suite">Suite</option>
-                        </select>
+                    <label>Room Id:
+                        <input type="number" name="roomId" value={formData.roomId} onChange={handleChange} required>
+                            
+                        </input>
                     </label>
                     <div className="button-container">
                         <button type="submit" className="booking-button" disabled={!isFormValid}>Confirm Booking</button>
