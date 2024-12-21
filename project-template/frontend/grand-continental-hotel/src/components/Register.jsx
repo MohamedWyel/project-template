@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import "./register.css";
 import Navbar from "./Navbar";
+import "./register.css";
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const validateForm = () => {
     if (!fullname.trim()) return "Full name is required.";
     if (!username.trim()) return "Username is required.";
-    if (!/^[a-zA-Z0-9_.-]*$/.test(username)) 
+    if (!/^[a-zA-Z0-9_.-]*$/.test(username))
       return "Username can only contain letters, numbers, dots, dashes, and underscores.";
     if (password.length < 6)
       return "Password must be at least 6 characters long.";
@@ -18,9 +22,18 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
+
     const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/register`, {
+      const response = await fetch(`http://localhost:3000/register` , {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,13 +47,16 @@ const Register = () => {
       }
 
       const data = await response.json();
+      setSuccess("Registration successful! You can now log in.");
       console.log("Success:", data);
 
       setFullname("");
       setUsername("");
       setPassword("");
     } catch (error) {
-      error.message && alert(error.message);
+      setError(error.message || "Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,7 +117,6 @@ const Register = () => {
           </div>
         </form>
       </div>
-
     </div>
   );
 };
