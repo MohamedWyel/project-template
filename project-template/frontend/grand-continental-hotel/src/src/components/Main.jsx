@@ -2,21 +2,16 @@ import "./main.css";
 import roomImage2 from '../images/room2.jpg';
 import roomImage3 from '../images/room3.jpg';
 import roomImage4 from '../images/room4.jpeg';
+import Navbar from './Navbar'; 
 
-import Navbar from './Navbar';  
+
+
+
 import { useEffect } from "react";
-
 
 const Main = () => {
 
   useEffect(() => {
-    if (window.location.hash === "#Home") {
-      const contactSection = document.getElementById("Home");
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  
     if (window.location.hash === "#contact") {
       const contactSection = document.getElementById("contact");
       if (contactSection) {
@@ -43,34 +38,27 @@ const Main = () => {
     }
   }, []);
 
-
   return (
     <>
           <Navbar /> 
 
     
-
-  <div id="Home" className="header-background">
-
+          <div className="header-background">
   <div className="header-overlay"></div> 
   <div className="header-text">
     <div class="header-title-container">
       <div class="lis1"></div>
-      <p class="line39 lux">Luxury Living</p>
+      <p class="line38 lux">Luxury Living</p>
       <div class="lis2"></div>
     </div>
     <br />
     <p className="line1">Discover A Brand</p>
-
-    <p className="line2" id="about"> Luxurious Hotel</p>
-
+    <p className="line2"> Luxurious Hotel</p>
   </div>
 </div> 
 <br />
 <br /><br /> <br />
-
-<h2 className="about1"> Welcome to Grand Continental</h2>
-
+<h2 id="about" className="about1"> Welcome to Grand Continental</h2>
 <p className="pp">
   Welcome to our luxurious hotel, where elegance and comfort come together in perfect harmony.  
   Experience unparalleled hospitality and world-class amenities designed to exceed your expectations.  
@@ -103,8 +91,9 @@ const Main = () => {
   <p class="line38">Our Rooms</p>
   <div class="lis2"></div>
 </div>
-<br /><br />
-<h2 className="explore">Explore Our<span> Rooms</span></h2>
+<br /><br /><br /><br />
+<h2 className="explore">Explore Our Rooms</h2>
+
 <div className="card-container">
   <div className="card">
     <div className="card-inner">
@@ -164,10 +153,8 @@ const Main = () => {
   <p class="line38">Our Services</p>
   <div class="lis2"></div>
 </div>
-<br /><br /><br />
-<h2 className="explore" id="Services">Explore Our <span>Services</span></h2>
-<br />
-<br />
+<br /><br /><br /><br />
+<h2 className="explore">Explore Our Services</h2>
 <div className="services-container">
   <div className="service">
     <i className="fas fa-concierge-bell"></i>
@@ -186,10 +173,7 @@ const Main = () => {
   </div>
 </div>
 
-
-
-<div className="services-container">
-
+<div id="Services" className="services-container">
   <div className="service">
     <i className="fas fa-swimmer"></i>
     <h3>Swimming Pool</h3>
@@ -212,8 +196,7 @@ const Main = () => {
 <br />
 
 
-<h2 className="comments-title">Customer <span>Reviews</span></h2>
-
+<h2 className="comments-title">Customer Reviews</h2>
 
 <div id="reviews" className="comments-section">
   <div className="comment">
@@ -241,7 +224,6 @@ const Main = () => {
       <i className="fas fa-star"></i>
       <i className="fas fa-star"></i>
       <i className="fas fa-star"></i>
-      <i class="fa-regular fa-star"></i>
     </div>
     <p>"The food was exceptional and the ambiance was perfect for a relaxing getaway."</p>
   </div>
@@ -249,15 +231,14 @@ const Main = () => {
   <div className="comment">
     <div className="user-info">
       <i className="fas fa-user-circle"></i>
-
-      <h3>Mohamed El-Gayar</h3>
+      <h3>Michael Brown</h3>
     </div>
     <div className="rating">
       <i className="fas fa-star"></i>
       <i className="fas fa-star"></i>
       <i className="fas fa-star"></i>
-      <i className="fa-regular fa-star"></i>
-      <i className="fa-regular fa-star"></i>
+      <i className="fas fa-star"></i>
+      <i className="fas fa-star"></i>
     </div>
     <p>"I enjoyed every moment of my stay. Highly recommended for families and couples alike!"</p>
   </div>
@@ -278,9 +259,8 @@ const Main = () => {
     <div className="footer-contact">
       <h3>Contact</h3>
       <p><i className="fas fa-map-marker-alt"></i> Elw7da Street, Imbaba, Egypt</p>
-      <p><i className="fas fa-phone-alt"></i> +20 110 241 4074</p>
-      <p><i className="fas fa-envelope"></i>  grandcontinental@lol.com</p>
-
+      <p><i className="fas fa-phone-alt"></i> +012 345 67890</p>
+      <p><i className="fas fa-envelope"></i> mail@domain.com</p>
       <div className="footer-socials">
         <i className="fab fa-twitter"></i>
         <i className="fab fa-facebook"></i>
@@ -302,6 +282,9 @@ const Main = () => {
     </div>
   </div>
 </footer>
+
+
+
       </>
   );
 };

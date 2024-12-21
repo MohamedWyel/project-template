@@ -6,10 +6,6 @@ const Register = () => {
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
   const validateForm = () => {
     if (!fullname.trim()) return "Full name is required.";
     if (!username.trim()) return "Username is required.";
@@ -22,16 +18,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
-
     const validationError = validateForm();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    setLoading(true);
     try {
       const response = await fetch(`http://localhost:3000/register`, {
         method: "POST",
@@ -47,16 +34,13 @@ const Register = () => {
       }
 
       const data = await response.json();
-      setSuccess("Registration successful! You can now log in.");
       console.log("Success:", data);
 
       setFullname("");
       setUsername("");
       setPassword("");
     } catch (error) {
-      setError(error.message || "Something went wrong!");
-    } finally {
-      setLoading(false);
+      error.message && alert(error.message);
     }
   };
 
@@ -117,6 +101,7 @@ const Register = () => {
           </div>
         </form>
       </div>
+
     </div>
   );
 };
