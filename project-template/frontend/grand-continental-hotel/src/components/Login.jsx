@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true);
     setError("");
 
-    fetch(`${process.env.REACT_APP_API_URL}/login`, {
+    fetch(`http://localhost:3000/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
