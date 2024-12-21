@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './checkout.css';
 
 const Checkout = () => {
@@ -10,12 +10,22 @@ const Checkout = () => {
     cvc: '',
   });
 
-  const [roomId, setRoomId] = useState("");
+  const [roomId, setRoomId] = useState('');
+  const [costPerNight, setCostPerNight] = useState(0);
+  const [numGuests, setNumGuests] = useState(1); // Default to 1 guest
+  const [totalCost, setTotalCost] = useState(0);
 
+  // Extract parameters from URL
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    const roomId = queryParams.get('roomId');
-    setRoomId(roomId);
+    const roomIdFromParams = queryParams.get('roomId');
+    const nightPrice = parseFloat(queryParams.get('nightPrice')) || 0; // nightPrice passed from booking page
+    const guests = parseInt(queryParams.get('guests')) || 1; // guests passed from booking page
+
+    setRoomId(roomIdFromParams);
+    setCostPerNight(nightPrice);
+    setNumGuests(guests);
+    setTotalCost(nightPrice * guests );
   }, []);
 
   const handleChange = (e) => {
@@ -30,7 +40,7 @@ const Checkout = () => {
       const response = await fetch('http://localhost:5000/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, roomId, totalCost }),
       });
 
       if (!response.ok) throw new Error('Checkout failed');
@@ -50,10 +60,12 @@ const Checkout = () => {
           <h1>HOTEL CHECKOUT FORM</h1>
           <h2>Receipt Form</h2>
           <p>Room No.: <strong>{roomId}</strong></p>
-          <p>Room Charges: <strong>$500.00</strong></p>
+          <p>Guests: <strong>{numGuests}</strong></p>
+          <p>Price per Night: <strong>${costPerNight} / guest</strong></p>
+          <p>Room Charges: <strong>${costPerNight * numGuests}</strong></p>
           <p>Service Charges: <strong>$10.00</strong></p>
           <p>VAT: <strong>$0.00</strong></p>
-          <h3>Total: <strong>${formData.totalAmount}</strong></h3>
+          <h3>Total: <strong>${totalCost + 10}</strong></h3>
           <h2>Payment Information</h2>
           <input
             type="text"
@@ -115,12 +127,11 @@ const Checkout = () => {
         </form>
         <div className="hotel-info">
           <h3>ROYAL PALACE</h3>
-          <p>$250.00 / night</p>
-          <p>Entire Room for 5 members.</p>
+          <p>${costPerNight} / night per guest</p>
+          <p>Entire Room for {numGuests} members.</p>
         </div>
       </div>
     </div>
   );
 };
-
 export default Checkout;

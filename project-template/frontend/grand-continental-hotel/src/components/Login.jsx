@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import "./login.css"; 
-import React, { useState } from "react";
-import Navbar from './Navbar';
+import "./login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +9,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
