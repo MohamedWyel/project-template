@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Navbar from "./Navbar";
 import "./book.css";
 
 const Book = () => {
     const [formData, setFormData] = useState({
         fullName: "", email: "", phone: "", checkIn: new Date(), checkOut: new Date(),
         roomType: "", guests: 1, specialRequests: ""
-    }); //hamdle book
+    });
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
@@ -27,8 +27,12 @@ const Book = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        alert(`Booking Confirmed:\n\n${JSON.stringify(formData, null, 2)}`);
-        resetForm();
+        if (isFormValid) {
+            // Handle form submission here
+            alert(`Booking Confirmed:\n\n${JSON.stringify(formData, null, 2)}`);
+            window.location.href = "/checkout"; //go to checkout page
+            resetForm(); //resest form
+        }
     };
 
     const formFields = [
@@ -40,7 +44,7 @@ const Book = () => {
     ];
 
     return (
-        <body class="body">
+        <div className="body">
             <div className="booking-container">
                 <Navbar />
                 <h2 className="booking-title">Book Your Stay</h2>
@@ -88,7 +92,8 @@ const Book = () => {
                     </div>
                 </form>
             </div>
-        </body>
+        </div>
     );
 };
+
 export default Book;

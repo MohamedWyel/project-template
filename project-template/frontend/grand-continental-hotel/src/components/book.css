@@ -1,6 +1,6 @@
 /* General Container Styling */
 .body{
-    background: url(../images/book-2.jpg);
+    /* background: url(../images/book-2.jpg); */
     background-size: cover;
 }
 .booking-container {
@@ -98,7 +98,7 @@
     position: relative;
     background: #f4f4f4; /* Default background */
     padding: 50px 0;
-    background-image: url('../images/book-2.jpg'); /* Replace with your image URL */
+    /* background-image: url('../images/book-2.jpg'); Replace with your image URL */
     background-size: cover; /* Ensure the image covers the entire container */
     background-position: center center; /* Center the image */
     background-attachment: fixed; /* Parallax effect on background */
