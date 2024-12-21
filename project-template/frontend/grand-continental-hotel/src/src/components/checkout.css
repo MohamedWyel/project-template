@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #f4f6f9, #d9e4f5);
+}
+
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.checkout-content {
+  display: flex;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Left Side - Form Section */
+.checkout-form {
+  flex: 1;
+  padding: 30px;
+  background: #fff;
+}
+
+.checkout-form h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.checkout-form h2 {
+  font-size: 18px;
+  margin: 15px 0 10px;
+  color: #555;
+}
+
+.checkout-form p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.checkout-form strong {
+  font-weight: 600;
+}
+
+.checkout-form input,
+.checkout-form select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.checkout-form .expiry-cvc {
+  display: flex;
+  gap: 10px;
+}
+
+.checkout-form .expiry-cvc select,
+.checkout-form .expiry-cvc input {
+  flex: 1;
+}
+
+.checkout-button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #ff7e36;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.checkout-button:hover {
+  background: #e66a2f;
+}
+
+/* Right Side - Hotel Info Section */
+.hotel-info {
+  flex: 1;
+  padding: 30px;
+  background: #f9fafc;
+  text-align: center;
+  border-left: 1px solid #eee;
+}
+
+.hotel-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.hotel-info p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checkout-content {
+    flex-direction: column;
+  }
+
+  .checkout-form,
+  .hotel-info {
+    width: 100%;
+  }
+}
